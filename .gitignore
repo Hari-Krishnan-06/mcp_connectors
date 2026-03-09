@@ -1,8 +1,7 @@
-.env
-gcp-oauth-keys.json
-.gdrive-server-credentials.json
-
 token.json
 youtube_token.json
 gmail_token.pickle
 __pycache__
+.env
+gcp-oauth-keys.json
+.gdrive-server-credentials.json
