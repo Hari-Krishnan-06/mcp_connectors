@@ -1,0 +1,25 @@
+# requirements.txt for mcp_connectors
+
+# MCP Server
+mcp
+
+# Google Drive & Gmail (Google API)
+google-api-python-client
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+
+# GitHub
+PyGithub
+
+# LinkedIn
+linkedin-api
+
+# YouTube
+google-api-python-client  # shared with Google Drive/Gmail
+
+# Environment variable management
+python-dotenv
+
+# Utilities
+requests
