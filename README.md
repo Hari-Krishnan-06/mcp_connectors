@@ -1,5 +1,3 @@
-mcp_connectors
-Overview
 mcp_connectors is a Python-based MCP (Model Context Protocol) server that integrates multiple third-party service connectors into a unified interface. It enables seamless interaction with popular platforms like Google Drive, Gmail, GitHub, LinkedIn, and YouTube through a single server entry point.
 
 Project Structure
