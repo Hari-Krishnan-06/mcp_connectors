@@ -1,0 +1,10 @@
+Package                                Purpose
+mcp                                   MCP server framework
+google-api-python-client              Google Drive, Gmail & YouTube API
+google-auth                           Google authentication
+google-auth-oauthlib                  OAuth 2.0 flow for Google
+google-auth-httplib2                  HTTP client for Google auth
+PyGithub                              GitHub API integration
+linkedin-api                          LinkedIn API integration
+python-dotenv                         Load API keys from .env file
+requests                              General HTTP requests
