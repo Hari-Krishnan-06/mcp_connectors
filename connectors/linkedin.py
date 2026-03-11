@@ -13,9 +13,9 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from mcp.server.fastmcp import FastMCP
 
 LINKEDIN_API  = "https://api.linkedin.com/v2"
-LINKEDIN_OIDC = "https://api.linkedin.com/v2/userinfo"   # ✅ FIXED: was /oidc/v2/userinfo
+LINKEDIN_OIDC = "https://api.linkedin.com/v2/userinfo"
 REDIRECT_URI  = os.getenv("LINKEDIN_REDIRECT_URI", "http://localhost:8000/callback")
-SCOPES        = "openid profile email w_member_social"
+SCOPES        = "openid profile email w_member_social"  # 'email' scope enables email field
 ENV_FILE      = Path(__file__).resolve().parents[1] / ".env"
 
 
@@ -53,8 +53,6 @@ def _save_token_to_env(token: str):
         with open(ENV_FILE, "a") as f:
             f.write(f"\nLINKEDIN_ACCESS_TOKEN={token}\n")
 
-    # ✅ FIXED: Force-update current process so token is available immediately
-    # without needing a server restart after OAuth completes.
     os.environ["LINKEDIN_ACCESS_TOKEN"] = token
     print(f"✅ Token saved to {ENV_FILE} and loaded into environment.")
 
@@ -163,7 +161,6 @@ def _fetch_token_via_browser() -> str:
     if not token:
         raise RuntimeError("❌ Failed to retrieve LinkedIn access token.")
 
-    # ✅ Set in os.environ first, then save to file (which also updates os.environ)
     os.environ["LINKEDIN_ACCESS_TOKEN"] = token
     _save_token_to_env(token)
     print("🎉 LinkedIn token acquired and saved. Continuing server startup...\n")
@@ -198,11 +195,14 @@ def register_linkedin_tools(mcp: FastMCP):
         """Get your LinkedIn profile information."""
         data = _get_profile_raw()
         return {
-            "id":         data.get("sub"),
-            "first_name": data.get("given_name"),
-            "last_name":  data.get("family_name"),
-            "name":       data.get("name"),
-            "picture":    data.get("picture"),
+            "id":             data.get("sub"),
+            "first_name":     data.get("given_name"),
+            "last_name":      data.get("family_name"),
+            "name":           data.get("name"),
+            "picture":        data.get("picture"),
+            "email":          data.get("email"),           # ✅ ADDED: email address
+            "email_verified": data.get("email_verified"),  # ✅ ADDED: email verification status
+            "locale":         data.get("locale"),          # ✅ ADDED: language/region
         }
 
     @mcp.tool()
